@@ -21,7 +21,7 @@ public class ProductController : ControllerBase
     {
         var product = _db.Products.ToList();
 
-        return Ok(product);
+        return Ok();
     }
 
 }
