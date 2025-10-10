@@ -1,6 +1,5 @@
 ﻿using Management.API.ModelDTO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Management.API.Services;
 
