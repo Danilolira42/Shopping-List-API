@@ -17,7 +17,12 @@ public class ProductDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var typeDataBase = _configuration["ConnectionStrings"];
+        var typeDataBase = _configuration["TypeDataBase"];
+
+        if (typeDataBase == null) {
+
+            throw new ArgumentNullException("Erro ao realizar conexão!");
+        }
 
         var connectionString = _configuration.GetConnectionString(typeDataBase);
         

@@ -1,9 +1,14 @@
-﻿namespace Management.API.ModelDTO;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Management.API.ModelDTO;
+
+[Table("ProductsRegister")]
 public class Product
 {
-    public int Id { get; set; }
+    [Key]
+    public int ProductId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public string ProductName { get; set; } = string.Empty;
 
 }
