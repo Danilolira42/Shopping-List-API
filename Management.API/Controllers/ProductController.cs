@@ -42,8 +42,7 @@ public class ProductController : ControllerBase
             {
                 Errors = result.Errors.Select(e => e.ErrorMessage).ToList()
             };
-        
-
+      
             return StatusCode(StatusCodes.Status400BadRequest, errors);
         }
 
@@ -52,6 +51,25 @@ public class ProductController : ControllerBase
         _db.SaveChanges();
 
         return CreatedAtAction(nameof(CreateProduct), new { id = product.ProductId }, product);
+    }
+
+    [HttpPut("UpdateProduct")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(Product request)
+    {
+        var productsData = await _db.Products.FindAsync(request.ProductId);
+
+        if (productsData == null)
+        {
+            return StatusCode(404, "Produto não encontrado!");
+        }
+
+        productsData.ProductName = request.ProductName;
+
+        _db.SaveChanges();
+
+        return StatusCode(200, "Produto atualizado com sucesso!");
     }
 
 }
