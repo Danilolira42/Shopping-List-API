@@ -2,6 +2,7 @@
 using Management.API.ModelDTO;
 using Management.API.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ShoppingList.API.Validation
 {
@@ -10,27 +11,12 @@ namespace ShoppingList.API.Validation
 
         public ProductsValidation()
         {
-            RuleFor(Product => Product.ProductName);
 
             var productsList = new ProductDbContext(new DbContextOptions<ProductDbContext>(), new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build()).Products.ToList();
 
-            if (productsList != null && productsList.Count > 0)
-            {
-                RuleFor(Product => Product.ProductName).Equal(productsList[0].ProductName).Must(name =>
-                {
-                    foreach (var product in productsList)
-                    {
-                        if (product.ProductName == name)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }).
-                WithMessage("ProductName must be unique.");
-            }
+            RuleFor(Product => Product.ProductName).Must(name => !productsList.Any(productsList => productsList.ProductName == name)).WithMessage("Este produto já existe na lista!");
         }
     }
 }
