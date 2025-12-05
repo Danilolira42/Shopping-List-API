@@ -1,6 +1,6 @@
 ﻿namespace ShoppingList.API.Errors
 {
-    public class RequestErrorsProducts
+    public class UpdateProductsError
     {
         public List<string> Errors { get; set; } = [];
     }

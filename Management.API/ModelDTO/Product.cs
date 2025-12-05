@@ -11,4 +11,6 @@ public class Product
 
     public string ProductName { get; set; } = string.Empty;
 
+    public DateTime RegistrationDate { get; set; }
+
 }

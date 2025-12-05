@@ -32,9 +32,4 @@ public class ProductDbContext : DbContext
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
     }
-
-
-
-
-
 }

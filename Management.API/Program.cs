@@ -1,4 +1,5 @@
 using Management.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ProductDbContext>();
+builder.Services.AddDbContext<ProductDbContext>(options => {
+
+    var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    
+})
+;
 
 builder.Services.AddCors(options =>
 {
